@@ -1,0 +1,14 @@
+FOX OS Chromebook PWA — INSTALL
+
+1. Upload the app files to your GitHub repository root.
+2. Because GitHub's web uploader may not create folders for you, create this file directly in GitHub:
+   .github/workflows/build-foxos-companion.yml
+3. Paste the contents of GITHUB_WORKFLOW_build-foxos-companion.yml into that file.
+4. In GitHub, open Settings > Pages and set the source to GitHub Actions.
+5. Push to main or run the workflow manually from Actions.
+6. Open the GitHub Pages URL in Chrome on your Chromebook.
+7. Chrome should offer FOX OS as an installable web app. If the install button is shown inside FOX OS, you can use it too.
+
+The installed app runs in its own standalone window. The built-in Browser remains inside FOX OS.
+
+Note: a PWA must be served from a secure origin such as GitHub Pages (HTTPS) for normal browser installation behavior. Opening index.html directly from a ZIP is a preview, not the normal install route.
