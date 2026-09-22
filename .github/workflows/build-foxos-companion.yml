@@ -3,8 +3,7 @@ name: Build and Deploy FOX OS Chromebook Companion
 on:
   workflow_dispatch:
   push:
-    branches:
-      - main
+    branches: [main]
 
 permissions:
   contents: read
@@ -18,86 +17,48 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Reconstruct FOX OS project folders
+      - name: Reconstruct icon folder
         shell: bash
         run: |
           set -e
-
-          echo "Creating icon directory..."
           mkdir -p icons
-
-          # Accept icons uploaded individually to the repository root.
           for size in 48 72 96 128 144 192 256 384 512; do
-            if [ -f "icon-${size}.png" ]; then
-              cp "icon-${size}.png" "icons/icon-${size}.png"
-            fi
+            if [ -f "icon-${size}.png" ]; then cp "icon-${size}.png" "icons/icon-${size}.png"; fi
           done
-
-          # If only the main FOX OS logo was uploaded,
-          # use it as the fallback application icon.
           if [ -f "fox-os-logo.png" ]; then
             for size in 48 72 96 128 144 192 256 384 512; do
-              if [ ! -f "icons/icon-${size}.png" ]; then
-                cp "fox-os-logo.png" "icons/icon-${size}.png"
-              fi
+              if [ ! -f "icons/icon-${size}.png" ]; then cp "fox-os-logo.png" "icons/icon-${size}.png"; fi
             done
           fi
 
-          echo "Project files:"
-          ls -la
-
-          echo "Icons:"
-          ls -la icons
-
-      - name: Validate FOX OS PWA
-        shell: bash
+      - name: Validate site
         run: |
           set -e
-
           test -f index.html
           test -f styles.css
           test -f app.js
           test -f manifest.json
           test -f service-worker.js
           test -f fox-os-logo.png
-
           test -f icons/icon-192.png
           test -f icons/icon-512.png
 
-          echo "FOX OS PWA validation passed."
-
-      - name: Package FOX OS PWA
-        shell: bash
+      - name: Package PWA
         run: |
           set -e
-
           rm -rf dist
           mkdir -p dist/icons
-
-          cp index.html dist/
-          cp styles.css dist/
-          cp app.js dist/
-          cp manifest.json dist/
-          cp service-worker.js dist/
-          cp fox-os-logo.png dist/
-
-          cp README.txt dist/ 2>/dev/null || true
-          cp INSTALL.txt dist/ 2>/dev/null || true
-
+          cp index.html styles.css app.js manifest.json service-worker.js fox-os-logo.png dist/
+          cp README.txt INSTALL.txt dist/ 2>/dev/null || true
           cp icons/*.png dist/icons/
-
-          echo "FOX OS package:"
-          find dist -maxdepth 2 -type f | sort
-
           cd dist
           zip -r ../FOXOS-Chromebook-PWA.zip .
 
-      - name: Upload APK/PWA package
+      - name: Upload PWA artifact
         uses: actions/upload-artifact@v4
         with:
           name: FOXOS-Chromebook-PWA
@@ -108,13 +69,11 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build
-
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Configure GitHub Pages
