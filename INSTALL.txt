@@ -1,9 +1,0 @@
-FOX OS Chromebook Companion v0.9
-
-1. Upload the contents of this folder to a GitHub repository (flat upload is supported).
-2. Enable GitHub Pages for the repository if you want a hosted PWA.
-3. Open the Pages URL in Chrome.
-4. Use Install FOX OS when Chrome offers PWA installation.
-5. The app works offline after its service worker cache is populated.
-
-No Quest is required: Device Bridge includes a Quest Simulator.
