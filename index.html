@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0796e6">
+<meta name="description" content="FOX OS Developer Companion for the BONELAB FOX OS code mod.">
+<title>FOX OS</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon-48.png" sizes="48x48">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<aside>
+  <div class="brand">
+    <img src="fox-os-logo.png" alt="FOX OS">
+    <div><b>FOX OS</b><small>Developer Companion • v0.7 + Custom</small></div>
+  </div>
+  <nav id="nav">
+    <button data-v="home">Home</button>
+    <button data-v="projects">Projects</button>
+    <button data-v="code">Code</button>
+    <button data-v="circuits">Circuits</button>
+    <button data-v="studio">Game Studio</button>
+    <button data-v="world">World Builder</button>
+    <button data-v="memory">Memory Core</button>
+    <button data-v="devices">Device Bridge</button>
+    <button data-v="permissions">Permissions</button>
+    <button data-v="agents">Agents</button>
+    <button data-v="sim">Simulator</button>
+    <button data-v="systems">Systems</button>
+    <button data-v="browser">Browser</button>
+    <button data-v="logs">Build / Logs</button>
+    <button data-v="docs">Docs</button>
+    <button data-v="plugins">Plugins</button>
+    <button data-v="tasks">Tasks</button>
+    <button data-v="pages">My Pages</button>
+    <button data-v="settings">Settings</button>
+  </nav>
+  <div class="sidefoot">BONELAB code mod<br><span id="sideStatus">Development mode</span></div>
+</aside>
+
+<main>
+  <header>
+    <span id="title">Home</span>
+    <div class="header-actions">
+      <button id="installBtn" class="install" hidden>Install FOX OS</button>
+      <button id="commandBtn" title="Command palette">⌘ /</button>
+      <button id="new">New Project</button>
+    </div>
+  </header>
+  <section id="app"></section>
+</main>
+
+<div id="toast" class="toast"></div>
+<div id="palette" class="overlay hidden">
+  <div class="palette">
+    <input id="paletteInput" placeholder="Search FOX OS commands..." autocomplete="off">
+    <div id="paletteResults"></div>
+    <small>Esc to close • ↑ ↓ to navigate • Enter to run</small>
+  </div>
+</div>
+
+<script src="app.js"></script>
+<script>
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("./service-worker.js").catch(()=>{});
+</script>
+</body>
+</html>
