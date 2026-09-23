@@ -1,8 +1,0 @@
-FOX OS v0.5 Chromebook Install
-
-1. Upload these files to your GitHub Pages repository while preserving their relative paths.
-2. Enable GitHub Pages for the repository.
-3. Open the published page in ChromeOS.
-4. Use Chrome's install option or the FOX OS Install button when available.
-
-No Quest is required for v0.5. Use Device Bridge > Add Quest Simulator to test the connection workflow locally.
